@@ -9,8 +9,26 @@
   <div th:replace="fragments/common :: menu ('boardList')"></div>
 
   <main class="container">
-    <div class="starter-template">
-      <h1>Board!</h1>
+    <h1>Board</h1>
+    <div>総件数：<span th:text="${#lists.size(boards)}"></span></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Title</th>
+          <th scope="col">Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="board : ${boards}">
+          <td th:text="${board.id}"></td>
+          <td th:text="${board.title}">Otto</td>
+          <td th:text="${board.content}">@mdo</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-end">
+      <button type="button" class="btn btn-primary">投稿</button>
     </div>
   </main>
 
