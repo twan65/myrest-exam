@@ -1,4 +1,4 @@
-package org.myrest.model;
+package org.myrest.web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +19,14 @@ public class Board {
   private String title;
   private String content;
 
-  @Builder
   public Board(Long id, String title, String content) {
     this.id = id;
     this.title = title;
     this.content = content;
+  }
+
+  public void update(BoardDTO boardDTO) {
+    this.title = boardDTO.getTitle();
+    this.content = boardDTO.getContent();
   }
 }
