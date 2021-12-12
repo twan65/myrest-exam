@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.myrest.web.model.Board;
 import org.myrest.web.model.BoardDTO;
 import org.myrest.web.repository.BoardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +20,8 @@ public class BoardService {
 
   private final BoardRepository boardRepository;
 
-  public List<BoardDTO> findAll() {
-    return boardRepository.findAll().stream().map(BoardDTO::new).collect(toList());
+  public Page<Board> findAll(Pageable pageable) {
+    return boardRepository.findAll(pageable);
   }
 
   @Transactional(readOnly = true)
