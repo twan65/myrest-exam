@@ -26,8 +26,11 @@ public class BoardController {
   private final BoardService boardService;
 
   @GetMapping("/list")
-  public String findAll(Model model, @PageableDefault(size = 4) Pageable pageable) {
-    Page<Board> boards = boardService.findAll(pageable);
+  public String findAll(
+      Model model,
+      @PageableDefault(size = 4) Pageable pageable,
+      @RequestParam(required = false, defaultValue = "") String searchText) {
+    Page<Board> boards = boardService.findAll(searchText, pageable);
 
     int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
     int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);

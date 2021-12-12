@@ -20,8 +20,8 @@ public class BoardService {
 
   private final BoardRepository boardRepository;
 
-  public Page<Board> findAll(Pageable pageable) {
-    return boardRepository.findAll(pageable);
+  public Page<Board> findAll(String searchText, Pageable pageable) {
+    return boardRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable);
   }
 
   @Transactional(readOnly = true)
