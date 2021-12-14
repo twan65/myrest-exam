@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head (title)">
     <!-- Required meta tags -->
@@ -11,7 +11,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title th:text="${title}">Board</title>
-    <link th:href="@{/starter-template.css}" rel="stylesheet">
+    <link th:href="@{/css/starter-template.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -33,6 +33,19 @@
                             th:href="@{/board/list}">Board</a>
                     </li>
                 </ul>
+
+
+                <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/login}"
+                    sec:authorize="!isAuthenticated()">ログイン</a>
+                <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/register}"
+                    sec:authorize="!isAuthenticated()">会員登録</a>
+
+                <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post"
+                    sec:authorize="isAuthenticated()">
+                    <span class="text-white mx-2" sec:authentication="name">ユーザー</span>
+                    <span class="text-white mx-2" sec:authentication="principal.authorities">権限</span>
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">ログアウト</button>
+                </form>
             </div>
         </div>
     </nav>

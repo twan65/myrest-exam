@@ -1,6 +1,29 @@
 SET CHARACTER SET utf8mb4;
 USE mydb;
 
+CREATE TABLE user (
+  id INT(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  username VARCHAR(50) NOT NULL COMMENT 'ユーザーID',
+  password VARCHAR(100) NOT NULL COMMENT 'パスワード',
+  enabled BIT NOT NULL COMMENT '活性フラグ',
+  CONSTRAINT user_PKC PRIMARY KEY(id),
+  CONSTRAINT user_IDXC UNIQUE(username)
+) COMMENT='ユーザー';
+
+CREATE TABLE role (
+  id INT(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  name VARCHAR(50) NOT NULL COMMENT '権限名',
+  CONSTRAINT role_PKC PRIMARY KEY(id)
+) COMMENT='ロール';
+
+CREATE TABLE user_role (
+  user_id INT(10) NOT NULL COMMENT 'ユーザーID',
+  role_id INT(10) NOT NULL COMMENT 'ロールID',
+  CONSTRAINT user_role_PKC PRIMARY KEY(user_id, role_id),
+  CONSTRAINT user_role_user_id_FKC FOREIGN KEY(user_id) REFERENCES user(id),
+  CONSTRAINT user_role_role_id_FKC FOREIGN KEY(role_id) REFERENCES role(id)
+) COMMENT='ユーザーロール';
+
 CREATE TABLE board (
   id INT(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   title VARCHAR(50) NOT NULL COMMENT 'タイトル',
