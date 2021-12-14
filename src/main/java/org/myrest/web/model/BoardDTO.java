@@ -27,7 +27,7 @@ public class BoardDTO {
     this.content = board.getContent();
   }
 
-  public Board toEntity() {
-    return new Board(id, title, content);
+  public Board toEntity(User user) {
+    return new Board(id, title, content, user);
   }
 }
